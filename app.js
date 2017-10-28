@@ -27,3 +27,26 @@ var unicorn = new Product('Unicorn Meat', 'img/unicorn.jpg', false, false, false
 var usb = new Product('USB Tentacle', 'img/usb.gif', false, false, false);
 var waterCan = new Product('Perpetual Motion Water Can', 'img/water-can.jpg', false, false, false);
 var wineGlass = new Product('Wine Glass', 'img/wine-glass.jpg', false, false, false);
+
+function pickProduct(pos) {
+  var flag = false;
+  while (!flag) {
+    flag = false;
+    var candProduct = Math.floor(Math.random() * Product.length);
+    if (Product.pick [candProduct]) {
+      flag = true;
+      break;
+    }
+    if (pos / 2 == Math.floor(pos / 2)) { // pos is even
+      if (Product.odd) { // Product was picked in the last round
+        flag = true;
+        break;
+      }
+    } else // pos is odd
+    if (Prod.even) { // Product was picked in last round
+      flag = true;
+      break;
+    }
+  } //wend !flag
+  return(candProduct);
+}
