@@ -10,6 +10,7 @@
 * As a developer, I want to create an application that displays three images, records the popularity of products and displays the results.
 * As a developer, I need to manage the images so they are approximately the same size as each other.
 * As a developer, I want an application that does not display the same image twice on the screen, and does not display on the next screen an image that appeared on the previous screen.
+* Perhaps I could use even/odd Booleans in the object, and reset those at even/odd counts to make sure an item does not appear twice in a row.
 * As a developer, I want the application to only display the statistical results after 25 selections have been made
 * As a developer, I want an application that is formatted attractively and professionally.
 
