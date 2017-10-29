@@ -112,7 +112,7 @@ function pickThree(count) {
 
 function pickAll() {
   console.log('count = ', count);
-  var results = document.getElementById('results'); // Error here?  You cannot have properties within classes, only methods.  Adapted from Duckett JS p65/70
+  var results = document.getElementById('results');
   results.textContent = ('There are ' + (25 - count) + ' more rounds to pick.');
   // reset Booleans for products two counts old
   for (var prod = 0; prod < allProd.length; prod++) {
@@ -170,4 +170,6 @@ function endResults() {
   for (var i = 0; i < allProd.length; i++) {
     msg += '<p>' + allProd[i].name + ', ' + allProd[i].select + '</p>';
   }
+  // add message (I hope)
+  results.p = msg;
 }
