@@ -170,6 +170,6 @@ function endResults() {
   for (var i = 0; i < allProd.length; i++) {
     msg += '<p>' + allProd[i].name + ', ' + allProd[i].select + '</p>';
   }
-  // add message
+  // add message (I hope)
   results.p = msg;
 }
