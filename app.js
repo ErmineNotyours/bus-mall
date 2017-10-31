@@ -9,13 +9,13 @@ function Product(name, img, pick, even, odd, display, select) {
   this.img = img;
   this.pick = pick; // True if currently picked in displayed three
   this.even = even; // True if picked in an even round (don't pick it in the next (odd) round)
-  this.odd = odd; // True if picked in an odd round (don't picke it in the next (even) round)
+  this.odd = odd; // True if picked in an odd round (don't pick it in the next (even) round)
   this.display = display; // Number of times product is displayed
   this.select = select; // Number of times product is selected
 };
 
 var allProd = [];
-allProd[0] = new Product('Bag', 'img/bag.jpg', false, false, false, 0, 0);
+allProd[0] = new Product('R2D2 Luggage', 'img/bag.jpg', false, false, false, 0, 0);
 allProd[1] = new Product('Banana', 'img/banana.jpg', false, false, false, 0, 0);
 allProd[2] = new Product('Bathroom', 'img/bathroom.jpg', false, false, false, 0, 0);
 allProd[3] = new Product('Boots', 'img/boots.jpg', false, false, false, 0, 0);
@@ -37,30 +37,22 @@ allProd[18] = new Product('Perpetual Motion Water Can', 'img/water-can.jpg', fal
 allProd[19] = new Product('Wine Glass', 'img/wine-glass.jpg', false, false, false, 0, 0);
 
 function pickProduct(pos) {
-  var flag = true;
+  var flag = true; // Set to true to enter loop
   while (flag) {
-    flag = false;
-    var candProduct = Math.floor(Math.random() * allProd.length);
-    // console.log('This should repeat if a candidate is rejected. candProduct = ', candProduct);
-    // console.log('allProd[candProduct].pick', allProd[candProduct].pick);
-    if (allProd[candProduct].pick) {
+    flag = false; // Set to false to exit loop if nothing sets it to true
+    var candProduct = Math.floor(Math.random() * allProd.length); // Pick a random product
+    if (allProd[candProduct].pick) { // Already displayed on screen
       flag = true;
-      // console.log('On pick, flag = true');
     }
     if (pos / 2 == Math.floor(pos / 2)) { // pos is even
-      // console.log('Pos is even, pos = ', pos);
-      if (allProd[candProduct].odd) { // Product was picked in the last round
+      if (allProd[candProduct].odd) { // Product was displayed in the last round
         flag = true;
-        // console.log('On odd, flag = true');
       }
     } else { // pos is odd
-      // console.log('Pos is odd, pos = ', pos);
-      if (allProd[candProduct].even) { // Product was picked in last round
+      if (allProd[candProduct].even) { // Product was displayed in last round
         flag = true;
-        // console.log('On even, flag = true');
       }
     }
-    // console.log('At bottom of while flag, flag = ', flag);
   } //wend flag
   // Picked a sucessful candidate.  Now set the Booleans of this object for the next round and pick of three
   allProd[candProduct].pick = true;
@@ -83,7 +75,6 @@ function pickThree(count) {
   var imgPath = allProd[candidate].img;
   prod1Candidate = candidate;
   allProd[candidate].display++;
-  //console.log('name = ', name);
   // do just the image for now
   var s = document.getElementById('img1');
   s.src = imgPath;
@@ -93,7 +84,6 @@ function pickThree(count) {
   var imgPath = allProd[candidate].img;
   prod2Candidate = candidate;
   allProd[candidate].display++;
-  //console.log('name = ', name);
   // do just the image for now
   var s = document.getElementById('img2');
   s.src = imgPath;
@@ -103,7 +93,6 @@ function pickThree(count) {
   var imgPath = allProd[candidate].img;
   prod3Candidate = candidate;
   allProd[candidate].display++;
-  //console.log('name = ', name);
   // do just the image for now
   var s = document.getElementById('img3');
   s.src = imgPath;
@@ -139,7 +128,8 @@ function img1Click() {
   allProd[prod1Candidate].select++;
   count++;
   console.log('img1Click count = ', count);
-  if (count > 25) {
+  if (count >= 25) {
+    console.log('Count > 25 ', count);
     endResults();
   }
   pickAll();
@@ -150,7 +140,8 @@ function img2Click() {
   allProd[prod2Candidate].select++;
   count++;
   console.log('img2Click count = ', count);
-  if (count > 25) {
+  if (count >= 25) {
+    console.log('Count > 25 ', count);
     endResults();
   }
   pickAll();
@@ -161,19 +152,25 @@ function img3Click() {
   allProd[prod3Candidate].select++;
   count++;
   console.log('img3Click count = ', count);
-  if (count > 25) {
+  if (count >= 25) {
+    console.log('Count > 25 ', count);
     endResults();
   }
   pickAll();
 }
 
 function endResults() {
+  // Need to stop event handling here.
+  img1.removeEventListener('click', img1Click);
+  img2.removeEventListener('click', img2Click);
+  img3.removeEventListener('click', img3Click);
   var results = document.getElementById('results');
-  // list items and their vote totals here
+  // list items and their vote totals here (doesn't work)
   var msg = '<p>Here\'s how many votes each product got: </p>';
   for (var i = 0; i < allProd.length; i++) {
     msg += '<p>' + allProd[i].name + ', ' + allProd[i].select + '</p>';
   }
+  console.log('msg = ', msg);
   // add message (I hope)
-  results.p = msg;
+  results.textContent = msg;
 }
