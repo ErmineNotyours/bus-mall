@@ -7,11 +7,11 @@ var prod3Candidate = 0;
 function Product(name, img, pick, even, odd, display, select) {
   this.name = name;
   this.img = img;
-  this.pick = pick;
-  this.even = even;
-  this.odd = odd;
-  this.display = display;
-  this.select = select;
+  this.pick = pick; // True if currently picked in displayed three
+  this.even = even; // True if picked in an even round (don't pick it in the next (odd) round)
+  this.odd = odd; // True if picked in an odd round (don't picke it in the next (even) round)
+  this.display = display; // Number of times product is displayed
+  this.select = select; // Number of times product is selected
 };
 
 var allProd = [];
@@ -83,7 +83,7 @@ function pickThree(count) {
   var imgPath = allProd[candidate].img;
   prod1Candidate = candidate;
   allProd[candidate].display++;
-  console.log('name = ', name);
+  //console.log('name = ', name);
   // do just the image for now
   var s = document.getElementById('img1');
   s.src = imgPath;
@@ -93,7 +93,7 @@ function pickThree(count) {
   var imgPath = allProd[candidate].img;
   prod2Candidate = candidate;
   allProd[candidate].display++;
-  console.log('name = ', name);
+  //console.log('name = ', name);
   // do just the image for now
   var s = document.getElementById('img2');
   s.src = imgPath;
@@ -103,7 +103,7 @@ function pickThree(count) {
   var imgPath = allProd[candidate].img;
   prod3Candidate = candidate;
   allProd[candidate].display++;
-  console.log('name = ', name);
+  //console.log('name = ', name);
   // do just the image for now
   var s = document.getElementById('img3');
   s.src = imgPath;
@@ -121,8 +121,9 @@ function pickAll() {
     } else { // count is odd
       allProd[prod].odd = false;
     } // next prod
-  pickThree(count);
-}
+    pickThree(count);
+  }
+} // Added bracket by Amber Kim
 pickAll();
 
 var img1 = document.getElementById('img1');
@@ -137,6 +138,7 @@ function img1Click() {
   event.preventDefault();
   allProd[prod1Candidate].select++;
   count++;
+  console.log('img1Click count = ', count);
   if (count > 25) {
     endResults();
   }
@@ -147,6 +149,7 @@ function img2Click() {
   event.preventDefault();
   allProd[prod2Candidate].select++;
   count++;
+  console.log('img2Click count = ', count);
   if (count > 25) {
     endResults();
   }
@@ -157,6 +160,7 @@ function img3Click() {
   event.preventDefault();
   allProd[prod3Candidate].select++;
   count++;
+  console.log('img3Click count = ', count);
   if (count > 25) {
     endResults();
   }
