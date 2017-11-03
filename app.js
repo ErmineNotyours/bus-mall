@@ -127,9 +127,7 @@ function img1Click() {
   event.preventDefault();
   allProd[prod1Candidate].select++;
   count++;
-  console.log('img1Click count = ', count);
   if (count >= 25) {
-    console.log('Count > 25 ', count);
     endResults();
   }
   pickAll();
@@ -139,9 +137,7 @@ function img2Click() {
   event.preventDefault();
   allProd[prod2Candidate].select++;
   count++;
-  console.log('img2Click count = ', count);
   if (count >= 25) {
-    console.log('Count > 25 ', count);
     endResults();
   }
   pickAll();
@@ -151,9 +147,7 @@ function img3Click() {
   event.preventDefault();
   allProd[prod3Candidate].select++;
   count++;
-  console.log('img3Click count = ', count);
   if (count >= 25) {
-    console.log('Count > 25 ', count);
     endResults();
   }
   pickAll();
@@ -166,11 +160,45 @@ function endResults() {
   img3.removeEventListener('click', img3Click);
   var results = document.getElementById('results');
   // list items and their vote totals here (doesn't work)
-  var msg = '<p>Here\'s how many votes each product got: </p>';
+  var msg = 'Here\'s how many votes each product got: ';
+  var labels = [];
+  var data = [];
+
   for (var i = 0; i < allProd.length; i++) {
-    msg += '<p>' + allProd[i].name + ', ' + allProd[i].select + '</p>';
+    var liEl = document.createElement('li');
+    liEl.textContent = allProd[i].name;
+    results.appendChild(liEl);
+    liEl.textContent = allProd[i].select;
+    results.appendChild(liEl);
+    msg += allProd[i].name + ', ' + allProd[i].select + ' ';// Need to add carrage return (ASCII 13)
+    // add Chart data
+    labels[i] = allProd[i].name;
+    data[i] = allProd[i].select;
   }
+  // var data = [allProd.select];
   console.log('msg = ', msg);
+  console.log('labels = ', labels);
   // add message (I hope)
   results.textContent = msg;
+  var ctx = document.getElementById('chart').getContext('2d');
+  var myBarChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: '# of Votes',
+        data: data,
+        backgroundColor: 'black'
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
 }
