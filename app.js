@@ -39,6 +39,7 @@ allProd[19] = new Product('Wine Glass', 'img/wine-glass.jpg', false, false, fals
 // Need to check if local storage for store and data exist.  If so, populate those variables.
 // From the MDN Using the Web storage API example
 // Moved JSON references from here
+// Try again to commit and push changes to repository
 
 if(localStorage.views) {
   var jsonViews = JSON.parse(localStorage.views);
